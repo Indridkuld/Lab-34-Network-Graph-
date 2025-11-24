@@ -5,7 +5,7 @@
 
 using namespace std;
 
-const int SIZE = 7;
+const int SIZE = 9;
 
 struct Edge {
     int src, dest, weight;
