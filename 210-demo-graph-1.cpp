@@ -52,6 +52,21 @@ public:
         }
     }
 
+    void printTransitNetwork() {
+    cout << "City Metro Network Topology:\n";
+    cout << "============================\n";
+    for (int i = 0; i < (int)adjList.size(); ++i) {
+        cout << "Station " << i << " (" << STATION_NAMES[i] << ") connects to:\n";
+        for (auto &p : adjList[i]) {
+            int v = p.first;
+            int w = p.second;
+            cout << "  → Station " << v << " (" << STATION_NAMES[v]
+                 << ") - Travel time: " << w << " min\n";
+        }
+        cout << endl;
+    }
+}
+
     // Depth-First Search (iterative)
     void dfs(int start) {
         vector<bool> visited(SIZE, false);
@@ -121,7 +136,9 @@ int main() {
     Graph graph(edges);
 
     graph.printGraph();
+    cout << "Metro Route Exploration (DFS) from Station 0 (Central Hub):\n";
     graph.dfs(0);
+    cout << "\nLayer-by-Layer Reach (BFS) from Station 0 (Central Hub):\n";
     graph.bfs(0);
 
     return 0;
