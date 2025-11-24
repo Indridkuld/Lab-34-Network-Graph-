@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <limits>
 #include <queue>
 
 using namespace std;
@@ -120,6 +121,32 @@ public:
         }
         cout << endl;
     }
+
+    vector<int> shortestPathsFrom(int start) {
+        const int INF = numeric_limits<int>::max();
+        vector<int> dist(SIZE, INF);
+        dist[start] = 0;
+
+        priority_queue<Pair, vector<Pair>, greater<Pair>> pq;
+        pq.push({0, start});
+
+        while (!pq.empty()) {
+            auto [d, u] = pq.top();
+            pq.pop();
+            if (d > dist[u]) continue;
+
+            for (auto &p : adjList[u]) {
+                int v = p.first;
+                int w = p.second;
+                if (dist[v] > dist[u] + w) {
+                    dist[v] = dist[u] + w;
+                    pq.push({dist[v], v});
+                }
+            }
+        }
+
+        return dist;
+    }
 };
 
 int main() {
@@ -140,6 +167,12 @@ int main() {
     graph.dfs(0);
     cout << "\nLayer-by-Layer Reach (BFS) from Station 0 (Central Hub):\n";
     graph.bfs(0);
+
+    auto dist = graph.shortestPathsFrom(0);
+    cout << "Shortest path from node 0:\n";
+    for (int i = 0; i < SIZE; ++i) {
+        cout << "0 -> " << i << " : " << dist[i] << "\n";
+    }
 
     return 0;
 }
