@@ -13,6 +13,18 @@ struct Edge {
 
 typedef pair<int, int> Pair;
 
+const vector<string> STATION_NAMES = {
+    "Central Hub",        // 0
+    "Museum District",    // 1
+    "Tech Park",          // 2
+    "Old Town",           // 3
+    "University",         // 4
+    "Airport",            // 5
+    "Business Park",      // 6
+    "Suburban Terminal",  // 7
+    "Stadium"             // 8
+};
+
 class Graph {
 public:
     vector<vector<Pair>> adjList;
